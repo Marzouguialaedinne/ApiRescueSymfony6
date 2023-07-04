@@ -1,0 +1,723 @@
+nelmio_api_doc:
+  documentation:
+    info:
+      title: Pet's Rescue France
+      description: Sauver des poules!
+      version: 1.0.0
+
+    servers:
+      - url: http://localhost:8000
+        description: Local API
+
+    paths:
+      /api/login_check:
+        post:
+          summary: Permet d'obtenir le token JWT pour se logger.
+          requestBody:
+            description: Crée un nouveau token JWT
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Credentials'
+          responses:
+            '200':
+              description: Récupère le token JWT
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/Token'
+
+      /api/addresses:
+        get:
+          summary: Permet d'obtenir la liste des adresses.
+          parameters:
+            - name: page
+              in: query
+              schema:
+                type: int
+            - name: items_per_page
+              in: query
+              schema:
+                type: int
+          responses:
+            '200':
+              description: Renvoie la liste des adresses
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/AddressCollection'
+
+        post:
+          summary: Permet de créer une nouvelle adresse.
+          requestBody:
+            description: Crée une nouvelle adresse
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Address'
+          responses:
+            '200':
+              description: Récupère les informations de l'adresse
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/AddressDetailed'
+
+      /api/addresses/{id}:
+        get:
+          summary: Permet d'obtenir le détail d'une adresse.
+          parameters:
+            - name: id
+              in: path
+              required: true
+              schema:
+                type: int
+          responses:
+            '200':
+              description: Renvoie le détail de l'adresse
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/AddressDetailed'
+
+        put:
+          summary: Permet de modifier une adresse.
+          parameters:
+            - name: id
+              in: path
+              required: true
+              schema:
+                type: int
+          requestBody:
+            description: Met à jour une adresse
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Address'
+          responses:
+            '200':
+              description: Renvoie le détail de l'adresse
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/AddressDetailed'
+
+        delete:
+          summary: Permet de supprimer une adresse.
+          parameters:
+            - name: id
+              in: path
+              required: true
+              schema:
+                type: int
+          responses:
+            '204':
+              description: No Content
+
+      /api/users:
+        get:
+          summary: Permet d'obtenir la liste des utilisateurs.
+          parameters:
+            - name: page
+              in: query
+              schema:
+                type: int
+            - name: items_per_page
+              in: query
+              schema:
+                type: int
+          responses:
+            '200':
+              description: Renvoie la liste des utilisateurs
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UserCollection'
+
+        post:
+          summary: Permet de créer un nouvel utilisateur.
+          requestBody:
+            description: Crée une nouvel utilisateur
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/User'
+          responses:
+            '200':
+              description: Récupère les informations de l'utilisateur
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UserDetailed'
+
+      /api/users/{id}:
+        get:
+          summary: Permet d'obtenir le détail d'un utilisateur.
+          parameters:
+            - name: id
+              in: path
+              required: true
+              schema:
+                type: int
+          responses:
+            '200':
+              description: Renvoie le détail de l'utilisateur
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UserDetailed'
+
+        put:
+          summary: Permet de modifier un utilisateur.
+          parameters:
+            - name: id
+              in: path
+              required: true
+              schema:
+                type: int
+          requestBody:
+            description: Met à jour un utilisateur
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/User'
+          responses:
+            '200':
+              description: Renvoie le détail de l'utilisateur
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UserDetailed'
+
+        delete:
+          summary: Permet de supprimer un utilisateur.
+          parameters:
+            - name: id
+              in: path
+              required: true
+              schema:
+                type: int
+          responses:
+            '204':
+              description: No Content
+
+      /api/associations:
+        get:
+          summary: Permet d'obtenir la liste des associations.
+          parameters:
+            - name: page
+              in: query
+              schema:
+                type: int
+            - name: items_per_page
+              in: query
+              schema:
+                type: int
+          responses:
+            '200':
+              description: Renvoie la liste des associations
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/AssociationCollection'
+
+        post:
+          summary: Permet de créer une nouvelle association.
+          requestBody:
+            description: Crée une nouvelle association
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Association'
+          responses:
+            '200':
+              description: Récupère les informations de l'association
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/AssociationDetailed'
+
+      /api/associations/{id}:
+        get:
+          summary: Permet d'obtenir le détail d'une association.
+          parameters:
+            - name: id
+              in: path
+              required: true
+              schema:
+                type: int
+          responses:
+            '200':
+              description: Renvoie le détail de l'association
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/AssociationDetailed'
+
+        put:
+          summary: Permet de modifier une association.
+          parameters:
+            - name: id
+              in: path
+              required: true
+              schema:
+                type: int
+          requestBody:
+            description: Met à jour une association
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Association'
+          responses:
+            '200':
+              description: Renvoie le détail de l'association
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/AssociationDetailed'
+
+        delete:
+          summary: Permet de supprimer une association.
+          parameters:
+            - name: id
+              in: path
+              required: true
+              schema:
+                type: int
+          responses:
+            '204':
+              description: No Content
+
+      /api/rescues:
+        get:
+          summary: Permet d'obtenir la liste des campagnes.
+          parameters:
+            - name: page
+              in: query
+              schema:
+                type: int
+            - name: items_per_page
+              in: query
+              schema:
+                type: int
+          responses:
+            '200':
+              description: Renvoie la liste des campagnes
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/RescueCollection'
+
+        post:
+          summary: Permet de créer une nouvelle campagne.
+          requestBody:
+            description: Crée une nouvelle campagne
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Rescue'
+          responses:
+            '200':
+              description: Récupère les informations de la campagne
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/RescueDetailed'
+
+      /api/rescues/{id}:
+        get:
+          summary: Permet d'obtenir le détail d'une campagne.
+          parameters:
+            - name: id
+              in: path
+              required: true
+              schema:
+                type: int
+          responses:
+            '200':
+              description: Renvoie le détail de la campagne
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/RescueDetailed'
+
+        put:
+          summary: Permet de modifier une campagne.
+          parameters:
+            - name: id
+              in: path
+              required: true
+              schema:
+                type: int
+          requestBody:
+            description: Met à jour une campagne
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Rescue'
+          responses:
+            '200':
+              description: Renvoie le détail de la campagne
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/RescueDetailed'
+
+        delete:
+          summary: Permet de supprimer une campagne.
+          parameters:
+            - name: id
+              in: path
+              required: true
+              schema:
+                type: int
+          responses:
+            '204':
+              description: No Content
+
+      /api/withdrawal:
+        get:
+          summary: Permet d'obtenir la liste des des points de retrait.
+          parameters:
+            - name: page
+              in: query
+              schema:
+                type: int
+            - name: items_per_page
+              in: query
+              schema:
+                type: int
+          responses:
+            '200':
+              description: Renvoie la liste des points de retrait
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/WithdrawalPointCollection'
+        post:
+          summary: Permet de créer un point de retrait.
+          requestBody:
+            description: Crée un point de retrait
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/WithdrawalPoint'
+          responses:
+            '200':
+              description: Récupère les informations des points de retrait
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/WithdrawalPointDetailed'
+
+      /api/withdrawal/{id}:
+        get:
+          summary: Permet d'obtenir le détail d'un point de retrait.
+          parameters:
+            - name: id
+              in: path
+              required: true
+              schema:
+                type: int
+          responses:
+            '200':
+              description: Renvoie le détail du point de retrait
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/WithdrawalPointDetailed'
+
+        put:
+          summary: Permet de modifier un point de retrait.
+          parameters:
+            - name: id
+              in: path
+              required: true
+              schema:
+                type: int
+          requestBody:
+            description: Met à jour une point de retrait
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/WithdrawalPoint'
+          responses:
+            '200':
+              description: Renvoie le détail du point de retrait
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/WithdrawalPointDetailed'
+
+        delete:
+          summary: Permet de supprimer un point de retrait.
+          parameters:
+            - name: id
+              in: path
+              required: true
+              schema:
+                type: int
+          responses:
+            '204':
+              description: No Content
+
+
+    components:
+      schemas:
+        Address:
+          type: object
+          properties:
+            street:
+              type: string
+            zipcode:
+              type: string
+            city:
+              type: string
+            region:
+              type: string
+              nullable: true
+            department:
+              type: string
+              nullable: true
+            country:
+              type: string
+        AddressCollection:
+          type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/AddressDetailed'
+            meta:
+              $ref: '#/components/schemas/Meta'
+        AddressDetailed:
+          allOf:
+            - type: object
+              properties:
+                id:
+                  type: int
+            - $ref: '#/components/schemas/Address'
+            - type: object
+              properties:
+                createdAt:
+                  type: string
+                updatedAt:
+                  type: string
+        Association:
+          type: object
+          properties:
+            name:
+              type: string
+            email:
+              type: string
+            phone:
+              type: string
+            siret:
+              type: string
+              nullable: true
+            image:
+              type: string
+              nullable: true
+            description:
+              type: string
+            certified:
+              type: boolean
+            address:
+              $ref: '#/components/schemas/Address'
+        AssociationCollection:
+          type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/AssociationDetailed'
+            meta:
+              $ref: '#/components/schemas/Meta'
+        AssociationDetailed:
+          allOf:
+            - type: object
+              properties:
+                id:
+                  type: int
+            - $ref: '#/components/schemas/Association'
+            - type: object
+              properties:
+                createdAt:
+                  type: string
+                updatedAt:
+                  type: string
+        Credentials:
+          type: object
+          properties:
+            username:
+              type: string
+              default: connector@example.com
+            password:
+              type: string
+              default: password
+        Meta:
+          type: object
+          properties:
+            current_page:
+              type: int
+            items_per_page:
+              type: int
+            last_page:
+              type: int
+            from:
+              type: int
+            to:
+              type: int
+            total:
+              type: int
+        Token:
+          type: object
+          properties:
+            token:
+              type: string
+        Rescue:
+          type: object
+          properties:
+            name:
+              type: string
+            image:
+              type: string
+            startDate:
+              type: string
+            endDate:
+              type: string
+            limitRefundDate:
+              type: string
+            price_in_euros:
+              type: string
+            payment_methods:
+              type: string
+            hen_origin:
+              type: string
+            hen_race:
+              type: string
+            hen_description:
+              type: string
+            hen_quantity:
+              type: integer
+            hen_limit_per_client:
+              type: integer
+        RescueCollection:
+          type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/RescueDetailed'
+            meta:
+              $ref: '#/components/schemas/Meta'
+        RescueDetailed:
+          allOf:
+            - type: object
+              properties:
+                id:
+                  type: int
+            - $ref: '#/components/schemas/Rescue'
+            - type: object
+              properties:
+                createdAt:
+                  type: string
+                updatedAt:
+                  type: string
+        WithdrawalPoint:
+          type: object
+          properties:
+            name:
+              type: string
+            description:
+              type: string
+            addressId:
+              type: integer
+            associationId:
+              type: integer
+        WithdrawalPointCollection:
+          type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/WithdrawalPointDetailed'
+            meta:
+              $ref: '#/components/schemas/Meta'
+        WithdrawalPointDetailed:
+          allOf:
+            - type: object
+              properties:
+                id:
+                  type: int
+            - $ref: '#/components/schemas/WithdrawalPoint'
+            - type: object
+              properties:
+                createdAt:
+                  type: string
+                updatedAt:
+                  type: string
+        User:
+          type: object
+          properties:
+            firstname:
+              type: string
+            lastname:
+              type: string
+            email:
+              type: string
+            phone:
+              type: string
+            birthdate: null
+            companyName:
+              type: string
+            siret:
+              type: string
+            professional:
+              type: boolean
+            verified:
+              type: boolean
+            roles:
+              type: array
+              items: string
+            address:
+              type: object
+              $ref: '#/components/schemas/Address'
+            associations:
+              type: array
+              items: string
+        UserCollection:
+          type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/UserDetailed'
+            meta:
+              $ref: '#/components/schemas/Meta'
+        UserDetailed:
+          allOf:
+            - type: object
+              properties:
+                id:
+                  type: int
+            - $ref: '#/components/schemas/User'
+            - type: object
+              properties:
+                createdAt:
+                  type: string
+                updatedAt:
+                  type: string
+
+      securitySchemes:
+        Bearer:
+          type: http
+          scheme: bearer
+          bearerFormat: JWT
+
+    security:
+      - Bearer: [ ]
+
+  areas: # to filter documented areas
+    path_patterns:
+      - ^/api(?!/doc$) # Accepts routes under /api except /api/doc
